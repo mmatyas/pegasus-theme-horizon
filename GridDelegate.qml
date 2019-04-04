@@ -32,7 +32,7 @@ Item {
 
         width: imgContainer.width + extraWidth
         height: imgContainer.height + extraHeight
-        color: active ? "#eee" : "#444"
+        color: active ? "#eee" : "#55333333"
         radius: activePadding
 
         anchors.centerIn: parent

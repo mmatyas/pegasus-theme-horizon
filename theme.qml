@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 
 FocusScope {
     id: root
@@ -9,7 +9,10 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: "#222"
+        gradient: Gradient {
+            GradientStop { position: 0.1; color: "#282228" }
+            GradientStop { position: 0.9; color: "#1a111a" }
+        }
     }
 
     Item {
@@ -47,6 +50,7 @@ FocusScope {
             font.pixelSize: root.height * 0.055
             font.family: globalFonts.sans
             font.capitalization: Font.AllUppercase
+            font.weight: Font.Light
 
             anchors.left: parent.left
             anchors.right: parent.right
