@@ -17,7 +17,7 @@ FocusScope {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: parent.height * 0.075
+        height: parent.height * 0.12
     }
 
     ListView {
@@ -37,7 +37,7 @@ FocusScope {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: paddingTop.bottom
         width: root.innerzoneWidth
-        height: headerLabel.height * 2
+        height: headerLabel.height * 1.5
 
         Text {
             id: headerLabel
@@ -50,7 +50,7 @@ FocusScope {
 
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.top: parent.top
             elide: Text.ElideRight
         }
     }
@@ -59,6 +59,7 @@ FocusScope {
         id: grid
 
         readonly property real cellWidthRatio: 16 / 9
+        readonly property int containedWidth: Math.floor((width - preferredHighlightBegin) / cellWidth) * cellWidth
 
         anchors.top: header.bottom
         anchors.bottom: paddingBottom.top
@@ -69,11 +70,12 @@ FocusScope {
         focus: true
 
         preferredHighlightBegin: outerzoneWidth / 2 - cellWidth * 0.05
-        preferredHighlightEnd: width - preferredHighlightBegin
+        preferredHighlightEnd: preferredHighlightBegin + containedWidth
         highlightRangeMode: GridView.StrictlyEnforceRange
+        highlightMoveDuration: 100
 
         cellHeight: height / 3
-        cellWidth: cellHeight * cellWidthRatio
+        cellWidth: (cellHeight * 0.9 * cellWidthRatio) + cellHeight * 0.1
 
         model: collections.currentData.games
         delegate: GridDelegate {
