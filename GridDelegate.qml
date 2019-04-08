@@ -13,7 +13,7 @@ Item {
     readonly property int scaleTime: 100
 
     signal clicked()
-    signal entered()
+    signal entered(rect geometry)
 
     z: active ? 65000 : 0
 
@@ -23,12 +23,15 @@ Item {
 
         if (api.keys.isAccept(event)) {
             event.accepted = true;
-            root.entered();
+            const coords = mapToItem(root, container.x, container.y);
+            const geometry = Qt.rect(coords.x, coords.y, container.width, container.height);
+            root.entered(geometry);
             return;
         }
     }
 
     Rectangle {
+        id: container
         readonly property real extraWidth: active ? 2 * activePadding : 0
         readonly property real extraHeight: active ? title.height + 3 * activePadding : 0
         readonly property real extraVOffset: active ? (title.height * 0.5 + activePadding * 0.5) : 0
@@ -62,19 +65,9 @@ Item {
             Behavior on height { NumberAnimation { duration: scaleTime } }
             Behavior on anchors.topMargin { NumberAnimation { duration: scaleTime } }
 
-            Image {
+            GameImage {
                 id: img
-
-                readonly property var assets: modelData.assets
-
-                anchors.fill: parent
-                fillMode: source == (assets.steam || assets.marquee || assets.boxFront)
-                    ? Image.PreserveAspectCrop
-                    : Image.PreserveAspectFit
-
-                source: assets.banner || assets.steam || assets.marquee || assets.tile || assets.logo || assets.boxFront
-                sourceSize { width: 256; height: 256 }
-                asynchronous: true
+                game: modelData
             }
 
             Text {

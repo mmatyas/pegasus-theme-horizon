@@ -26,7 +26,7 @@ FocusScope {
     ListView {
         id: collections
 
-        readonly property var currentData: api.collections.get(currentIndex)
+        readonly property var currentData: model.get(currentIndex)
 
         visible: false
         model: api.collections
@@ -62,6 +62,7 @@ FocusScope {
     GridView {
         id: grid
 
+        readonly property var currentData: model.get(currentIndex)
         readonly property real cellWidthRatio: 16 / 9
         readonly property int containedWidth: Math.floor((width - preferredHighlightBegin) / cellWidth) * cellWidth
 
@@ -86,7 +87,12 @@ FocusScope {
             width: grid.cellWidth
             height: grid.cellHeight
             onClicked: GridView.view.currentIndex = index
-            onEntered: modelData.launch()
+            onEntered: {
+                const coords = mapToItem(root, geometry.x, geometry.y);
+                const geometry2 = Qt.rect(coords.x, coords.y, geometry.width, geometry.height);
+                info.focus = true;
+                info.open(geometry2);
+            }
         }
 
         Keys.onPressed: {
@@ -104,6 +110,12 @@ FocusScope {
                 return;
             }
         }
+    }
+
+    GameInfoScreen {
+        id: info
+        originData: grid.currentData
+        onClosed: grid.focus = true
     }
 
     Item {
