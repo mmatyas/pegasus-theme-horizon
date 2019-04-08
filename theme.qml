@@ -86,6 +86,7 @@ FocusScope {
             width: grid.cellWidth
             height: grid.cellHeight
             onClicked: GridView.view.currentIndex = index
+            onEntered: modelData.launch()
         }
 
         Keys.onPressed: {

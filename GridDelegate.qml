@@ -12,6 +12,7 @@ Item {
     readonly property int activePadding: height * 0.03
 
     signal clicked()
+    signal entered()
 
     z: active ? 65000 : 0
 
@@ -21,7 +22,7 @@ Item {
 
         if (api.keys.isAccept(event)) {
             event.accepted = true;
-            modelData.launch();
+            root.entered();
             return;
         }
     }
@@ -100,6 +101,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: root.clicked()
+            onDoubleClicked: root.entered()
         }
     }
 }
