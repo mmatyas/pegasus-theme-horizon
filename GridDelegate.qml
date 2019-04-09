@@ -63,6 +63,24 @@ Item {
         Behavior on height { NumberAnimation { duration: scaleTime } }
         Behavior on anchors.verticalCenterOffset { NumberAnimation { duration: scaleTime } }
 
+        Text {
+            id: title
+
+            anchors.bottom: parent.bottom
+            anchors.left: imgContainer.left
+            anchors.right: imgContainer.right
+            anchors.margins: activePadding
+
+            font.pixelSize: activeImageH * 0.11
+            font.family: globalFonts.sans
+            font.bold: true
+
+            text: modelData.title
+            elide: Text.ElideRight
+
+            visible: active
+        }
+
         Item {
             id: imgContainer
 
@@ -100,24 +118,6 @@ Item {
 
                 visible: img.status != Image.Ready && img.status != Image.Loading
             }
-        }
-
-        Text {
-            id: title
-
-            anchors.bottom: parent.bottom
-            anchors.left: imgContainer.left
-            anchors.right: imgContainer.right
-            anchors.margins: activePadding
-
-            font.pixelSize: activeImageH * 0.11
-            font.family: globalFonts.sans
-            font.bold: true
-
-            text: modelData.title
-            elide: Text.ElideRight
-
-            visible: active
         }
 
         MouseArea {
