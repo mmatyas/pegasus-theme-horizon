@@ -31,14 +31,29 @@ Item {
     }
 
     Rectangle {
+        id: shadow
+
+        readonly property int shadowWidth: container.width * 0.015
+
+        anchors.centerIn: container
+        width: container.width + 2 * shadowWidth
+        height: container.height + 2 * shadowWidth
+        radius: container.radius * 1.3
+
+        color: "#000"
+        opacity: 0.2
+    }
+
+    Rectangle {
         id: container
+
         readonly property real extraWidth: active ? 2 * activePadding : 0
         readonly property real extraHeight: active ? title.height + 3 * activePadding : 0
         readonly property real extraVOffset: active ? (title.height * 0.5 + activePadding * 0.5) : 0
 
         width: imgContainer.targetW + extraWidth
         height: imgContainer.targetH + extraHeight
-        color: active ? "#eee" : "#55333333"
+        color: active ? "#eee" : "transparent"
         radius: activePadding
 
         anchors.centerIn: parent

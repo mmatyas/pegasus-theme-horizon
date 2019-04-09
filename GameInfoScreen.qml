@@ -11,7 +11,7 @@ Item {
     signal closed()
 
     anchors.fill: parent
-    visible: shade.opacity > 0.001
+    visible: bgshade.opacity > 0.001
 
 
     function open(geometry) {
@@ -34,10 +34,24 @@ Item {
 
 
     Rectangle {
-        id: shade
+        id: bgshade
         anchors.fill: parent
         color: "#000"
         opacity: 0.0
+    }
+
+    Rectangle {
+        id: containerShadow
+
+        readonly property int shadowWidth: originCell.width * 0.015
+
+        anchors.centerIn: container
+        width: container.width + 2 * shadowWidth
+        height: container.height + 2 * shadowWidth
+        radius: container.radius * 1.3
+
+        color: "#000"
+        opacity: 0.2
     }
 
     Rectangle {
@@ -127,7 +141,7 @@ Item {
     states: [
         State {
             name: "open"
-            PropertyChanges { target: shade; opacity: 0.4 }
+            PropertyChanges { target: bgshade; opacity: 0.4 }
             PropertyChanges { target: title; opacity: 1.0 }
             PropertyChanges { target: desc; opacity: 1.0 }
             PropertyChanges { target: container; padding: originCell.height * 0.15 }
@@ -147,7 +161,7 @@ Item {
         Transition {
             from: ""; to: "open"
             reversible: true
-            PropertyAnimation { target: shade; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
+            PropertyAnimation { target: bgshade; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: title; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: desc; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: container; properties: "padding,width,height"; duration: openDuration; easing.type: Easing.InOutQuad }
