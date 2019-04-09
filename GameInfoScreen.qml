@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-Item {
+FocusScope {
     id: root
 
     readonly property real heightRatio: 9 / 16
@@ -124,16 +124,70 @@ Item {
 
             width: root.width * 0.6 - 2 * parent.padding
             anchors.top: img.bottom
-            anchors.bottom: parent.bottom
+            anchors.bottom: likebtn.top
             anchors.margins: parent.padding
-            /*anchors.left: parent.left
-            anchors.right: parent.right*/
             anchors.horizontalCenter: parent.horizontalCenter
             elide: Text.ElideRight
             wrapMode: Text.Wrap
 
-            opacity: 0.0
-            visible: opacity > 0.001
+            opacity: title.opacity
+            visible: title.visible
+        }
+
+        BottomRoundedRectangle {
+            id: likebtn
+
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+
+            width: parent.width * 0.3
+            height: desc.font.pixelSize + container.padding * 1.4
+            leftRadius: parent.radius
+            onClicked: originData.favorite = !originData.favorite
+
+            baseColor: "#38f"
+            hoverColor: "#05e"
+
+            opacity: title.opacity
+            visible: title.visible
+
+            Image {
+                source: (originData.favorite && "assets/heart_filled.svg") || "assets/heart_empty.svg"
+                sourceSize { width: 32; height: 32 }
+                asynchronous: true
+
+                anchors.centerIn: parent
+            }
+        }
+
+        BottomRoundedRectangle {
+            id: launchbtn
+
+            anchors.left: likebtn.right
+            anchors.right: parent.right
+            anchors.top: likebtn.top
+            anchors.bottom: likebtn.bottom
+
+            rightRadius: parent.radius
+            baseColor: likebtn.baseColor
+            hoverColor: likebtn.hoverColor
+            onClicked: originData.launch()
+
+            opacity: title.opacity
+            visible: title.visible
+
+            focus: true
+            KeyNavigation.left: likebtn
+
+            Text {
+                text: "Launch!"
+                anchors.centerIn: parent
+
+                font.pixelSize: title.font.pixelSize * 0.75
+                font.family: globalFonts.sans
+                font.bold: true
+                color: "#eee"
+            }
         }
     }
 
@@ -143,7 +197,6 @@ Item {
             name: "open"
             PropertyChanges { target: bgshade; opacity: 0.4 }
             PropertyChanges { target: title; opacity: 1.0 }
-            PropertyChanges { target: desc; opacity: 1.0 }
             PropertyChanges { target: container; padding: originCell.height * 0.15 }
             PropertyChanges { target: container; x: 0.0 }
             PropertyChanges { target: container; y: 0.0 }
@@ -163,7 +216,6 @@ Item {
             reversible: true
             PropertyAnimation { target: bgshade; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: title; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: desc; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: container; properties: "padding,width,height"; duration: openDuration; easing.type: Easing.InOutQuad }
             AnchorAnimation { targets: container; duration: openDuration; easing.type: Easing.InOutQuad }
         }
