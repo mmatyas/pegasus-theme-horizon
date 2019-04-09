@@ -10,8 +10,8 @@ FocusScope {
     Rectangle {
         anchors.fill: parent
         gradient: Gradient {
-            GradientStop { position: 0.1; color: "#282228" }
-            GradientStop { position: 0.9; color: "#1a111a" }
+            GradientStop { position: 0.1; color: "#30383f" }
+            GradientStop { position: 0.8; color: "#08080f" }
         }
     }
 
