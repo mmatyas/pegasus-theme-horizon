@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 
 FocusScope {
     id: root
@@ -125,11 +125,21 @@ FocusScope {
             anchors.bottom: likebtn.top
             anchors.margins: parent.padding
             anchors.horizontalCenter: parent.horizontalCenter
-            elide: Text.ElideRight
             wrapMode: Text.Wrap
 
             opacity: title.opacity
             visible: title.visible
+        }
+
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: likebtn.top
+            height: desc.font.pixelSize * 5
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "transparent" }
+                GradientStop { position: 0.8; color: container.color }
+            }
         }
 
         BottomRoundedRectangle {
