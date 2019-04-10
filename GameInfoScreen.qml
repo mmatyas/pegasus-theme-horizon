@@ -11,7 +11,7 @@ FocusScope {
     signal closed()
 
     anchors.fill: parent
-    visible: bgshade.opacity > 0.001
+    visible: bgShadow.opacity > 0.001
 
 
     function open(geometry) {
@@ -34,7 +34,7 @@ FocusScope {
 
 
     Rectangle {
-        id: bgshade
+        id: bgShadow
         anchors.fill: parent
         color: "#000"
         opacity: 0.0
@@ -80,9 +80,7 @@ FocusScope {
             anchors.top: parent.top
             anchors.margins: parent.padding
 
-            GameImage {
-                game: originData
-            }
+            GameImage { game: originData }
         }
 
         Text {
@@ -195,7 +193,7 @@ FocusScope {
     states: [
         State {
             name: "open"
-            PropertyChanges { target: bgshade; opacity: 0.4 }
+            PropertyChanges { target: bgShadow; opacity: 0.4 }
             PropertyChanges { target: title; opacity: 1.0 }
             PropertyChanges { target: container; padding: originCell.height * 0.15 }
             PropertyChanges { target: container; x: 0.0 }
@@ -214,7 +212,7 @@ FocusScope {
         Transition {
             from: ""; to: "open"
             reversible: true
-            PropertyAnimation { target: bgshade; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
+            PropertyAnimation { target: bgShadow; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: title; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
             PropertyAnimation { target: container; properties: "padding,width,height"; duration: openDuration; easing.type: Easing.InOutQuad }
             AnchorAnimation { targets: container; duration: openDuration; easing.type: Easing.InOutQuad }
