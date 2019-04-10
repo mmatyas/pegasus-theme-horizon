@@ -9,7 +9,10 @@ Item {
     property color hoverColor
 
     readonly property bool isActive: activeFocus || mouse.containsMouse
-    readonly property color color: isActive ? hoverColor : baseColor
+    readonly property real gradientFactor: 0.3
+
+    property color color: isActive ? hoverColor : baseColor
+    Behavior on color { ColorAnimation { duration: 150 }}
 
     signal clicked()
 
@@ -20,47 +23,71 @@ Item {
         }
     }
 
+    function gradientAt(percent) {
+        return Qt.darker(root.color, 1.0 + gradientFactor * percent)
+    }
+
 
     Rectangle {
-        // bottom-left circle
+        id: leftCircle
+
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         width: leftRadius * 2
         height: leftRadius * 2
-        color: root.color
         radius: leftRadius
+
         visible: leftBar.visible
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: gradientAt(leftCircle.height / root.height) }
+            GradientStop { position: 1.0; color: gradientAt(1.0) }
+        }
     }
 
     Rectangle {
         id: leftBar
+
         anchors.left: parent.left
         anchors.top: parent.top
         width: leftRadius
         height: parent.height - leftRadius
-        color: root.color
+
         visible: leftRadius > 0.001
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: root.color }
+            GradientStop { position: 1.0; color: gradientAt(leftBar.height / root.height) }
+        }
     }
 
     Rectangle {
-        // bottom-right circle
+        id: rightCircle
+
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         width: rightRadius * 2
         height: rightRadius * 2
-        color: root.color
         radius: rightRadius
+
         visible: rightBar.visible
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: gradientAt(rightCircle.height / root.height) }
+            GradientStop { position: 1.0; color: gradientAt(1.0) }
+        }
     }
 
     Rectangle {
         id: rightBar
+
         anchors.right: parent.right
         anchors.top: parent.top
         width: rightRadius
         height: parent.height - rightRadius
-        color: root.color
+
         visible: rightRadius > 0.001
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: root.color }
+            GradientStop { position: 1.0; color: gradientAt(rightBar.height / root.height) }
+        }
     }
 
     Rectangle {
@@ -69,7 +96,11 @@ Item {
         anchors.right: rightBar.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        color: root.color
+
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: root.color }
+            GradientStop { position: 1.0; color: gradientAt(1.0) }
+        }
     }
 
 

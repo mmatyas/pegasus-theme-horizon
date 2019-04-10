@@ -65,7 +65,7 @@ FocusScope {
         y: originCell.y
         width: originCell.width
         height: originCell.height
-        radius: originCell.height * 0.03
+        radius: originCell.height * 0.03 * 1.5
         color: "#eee"
 
         anchors.horizontalCenter: undefined
@@ -139,12 +139,12 @@ FocusScope {
             anchors.bottom: parent.bottom
 
             width: parent.width * 0.3
-            height: desc.font.pixelSize + container.padding * 1.4
+            height: desc.font.pixelSize + container.padding * 1.2
             leftRadius: parent.radius
             onClicked: originData.favorite = !originData.favorite
 
             baseColor: "#38f"
-            hoverColor: "#05e"
+            hoverColor: "#04e"
 
             opacity: title.opacity
             visible: title.visible
@@ -155,6 +155,9 @@ FocusScope {
                 asynchronous: true
 
                 anchors.centerIn: parent
+                width: parent.width
+                height: parent.height * 0.5
+                fillMode: Image.PreserveAspectFit
             }
         }
 
