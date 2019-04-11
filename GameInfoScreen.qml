@@ -57,8 +57,8 @@ FocusScope {
     Rectangle {
         id: container
 
-        clip: true
-
+        readonly property int fullWidth: (root.height / heightRatio) * 0.6
+        readonly property int fullHeight: root.height * 0.9
         property real padding: originCell.height * 0.015
 
         x: originCell.x
@@ -67,6 +67,7 @@ FocusScope {
         height: originCell.height
         radius: originCell.height * 0.03 * 1.5
         color: "#eee"
+        clip: true
 
         anchors.horizontalCenter: undefined
         anchors.verticalCenter: undefined
@@ -96,7 +97,7 @@ FocusScope {
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
 
-            width: root.width * 0.6 - img.width - 3 * parent.padding
+            width: container.fullWidth - img.width - 3 * parent.padding
             anchors.top: img.top
             anchors.bottom: img.bottom
             anchors.left: img.right
@@ -120,7 +121,7 @@ FocusScope {
             font.family: globalFonts.sans
             font.weight: Font.Light
 
-            width: root.width * 0.6 - 2 * parent.padding
+            width: container.fullWidth - 2 * parent.padding
             anchors.top: img.bottom
             anchors.bottom: likebtn.top
             anchors.margins: parent.padding
@@ -211,8 +212,8 @@ FocusScope {
             PropertyChanges { target: container; padding: originCell.height * 0.15 }
             PropertyChanges { target: container; x: 0.0 }
             PropertyChanges { target: container; y: 0.0 }
-            PropertyChanges { target: container; width: root.width * 0.6 }
-            PropertyChanges { target: container; height: root.height * 0.9 }
+            PropertyChanges { target: container; width: container.fullWidth }
+            PropertyChanges { target: container; height: container.fullHeight }
             AnchorChanges {
                 target: container
                 anchors.horizontalCenter: root.horizontalCenter
