@@ -19,6 +19,11 @@ FocusScope {
         state = "open";
     }
 
+    function close() {
+        state = "";
+        root.closed();
+    }
+
 
     Keys.onPressed: {
         if (event.isAutoRepeat)
@@ -26,8 +31,7 @@ FocusScope {
 
         if (api.keys.isCancel(event)) {
             event.accepted = true;
-            state = "";
-            root.closed();
+            root.close();
             return;
         }
     }
@@ -38,6 +42,11 @@ FocusScope {
         anchors.fill: parent
         color: "#000"
         opacity: 0.0
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: root.close()
+        }
     }
 
     Rectangle {
