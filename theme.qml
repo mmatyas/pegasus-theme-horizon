@@ -3,9 +3,9 @@ import QtQuick 2.12
 FocusScope {
     id: root
 
-    readonly property int mainWidth: parent.height / 9.0 * 16.0
+    readonly property int mainWidth: Math.min(height / 9.0 * 16.0, width)
     readonly property int innerzoneWidth: mainWidth * 0.85
-    readonly property int outerzoneWidth: parent.width - innerzoneWidth
+    readonly property int outerzoneWidth: width - innerzoneWidth
 
     Rectangle {
         anchors.fill: parent
