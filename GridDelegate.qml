@@ -123,7 +123,11 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: root.clicked()
-            onDoubleClicked: root.entered()
+            onDoubleClicked: {
+                const coords = mapToItem(root, container.x, container.y);
+                const geometry = Qt.rect(coords.x, coords.y, container.width, container.height);
+                root.entered(geometry);
+            }
         }
     }
 }
