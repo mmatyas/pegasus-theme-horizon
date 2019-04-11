@@ -77,7 +77,7 @@ FocusScope {
         preferredHighlightBegin: outerzoneWidth / 2 - cellWidth * 0.05
         preferredHighlightEnd: preferredHighlightBegin + containedWidth
         highlightRangeMode: GridView.StrictlyEnforceRange
-        highlightMoveDuration: 100
+        highlightMoveDuration: 160
 
         cellHeight: height / 3
         cellWidth: (cellHeight * 0.9 * cellWidthRatio) + cellHeight * 0.1
