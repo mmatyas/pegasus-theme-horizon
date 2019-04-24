@@ -4,7 +4,7 @@ FocusScope {
     id: root
 
     readonly property int mainWidth: Math.min(height / 9.0 * 16.0, width)
-    readonly property int innerzoneWidth: mainWidth * 0.85
+    readonly property int innerzoneWidth: mainWidth * 0.82
     readonly property int outerzoneWidth: width - innerzoneWidth
 
     Rectangle {
@@ -20,7 +20,7 @@ FocusScope {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: parent.height * 0.12
+        height: parent.height * 0.1
     }
 
     ListView {
@@ -65,6 +65,7 @@ FocusScope {
         readonly property var currentData: model.get(currentIndex)
         readonly property real cellWidthRatio: 16 / 9
         readonly property int containedWidth: Math.floor((width - preferredHighlightBegin) / cellWidth) * cellWidth
+        readonly property real cellBorder: cellHeight * 0.075
 
         anchors.top: header.bottom
         anchors.bottom: paddingBottom.top
@@ -74,13 +75,13 @@ FocusScope {
         flow: GridView.FlowTopToBottom
         focus: true
 
-        preferredHighlightBegin: outerzoneWidth / 2 - cellWidth * 0.05
+        preferredHighlightBegin: outerzoneWidth / 2 - cellBorder
         preferredHighlightEnd: preferredHighlightBegin + containedWidth
         highlightRangeMode: GridView.StrictlyEnforceRange
         highlightMoveDuration: 160
 
         cellHeight: height / 3
-        cellWidth: (cellHeight * 0.9 * cellWidthRatio) + cellHeight * 0.1
+        cellWidth: (cellHeight * 0.85 * cellWidthRatio) + cellBorder * 2
 
         model: collections.currentData.games
         delegate: GridDelegate {

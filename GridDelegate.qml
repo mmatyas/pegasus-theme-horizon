@@ -7,7 +7,7 @@ Item {
     readonly property real widthRatio: 16 / 9
     readonly property int activeImageH: height * 1.06
     readonly property int activeImageW: activeImageH * widthRatio
-    readonly property int inactiveImageH: height * 0.86
+    readonly property int inactiveImageH: height * 0.85
     readonly property int inactiveImageW: inactiveImageH * widthRatio
     readonly property int activePadding: height * 0.03
     readonly property int scaleTime: 100
