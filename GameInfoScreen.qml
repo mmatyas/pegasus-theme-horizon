@@ -4,7 +4,8 @@ FocusScope {
     id: root
 
     readonly property real heightRatio: 9 / 16
-    readonly property real openDuration: 350
+    readonly property real openDuration: 300
+    readonly property real closeDuration: 250
     property var originData
     property rect originCell
 
@@ -233,14 +234,37 @@ FocusScope {
         }
     ]
 
+    readonly property var bezierStandard: [ 0.4,0.0, 0.2,1.0, 1.0,1.0 ]
     transitions: [
         Transition {
             from: ""; to: "open"
-            reversible: true
-            PropertyAnimation { target: bgShadow; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: title; properties: "opacity"; duration: openDuration; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: container; properties: "padding,width,height"; duration: openDuration; easing.type: Easing.InOutQuad }
-            AnchorAnimation { targets: container; duration: openDuration; easing.type: Easing.InOutQuad }
+            PropertyAnimation {
+                target: bgShadow; properties: "opacity";
+                duration: openDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            PropertyAnimation {
+                target: title; properties: "opacity";
+                duration: openDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            PropertyAnimation {
+                target: container; properties: "padding,width,height";
+                duration: openDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            AnchorAnimation {
+                targets: container;
+                duration: openDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+        },
+        Transition {
+            from: "open"; to: ""
+            PropertyAnimation {
+                target: bgShadow; properties: "opacity";
+                duration: closeDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            PropertyAnimation {
+                target: title; properties: "opacity";
+                duration: closeDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            PropertyAnimation {
+                target: container; properties: "padding,width,height";
+                duration: closeDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
+            AnchorAnimation {
+                targets: container;
+                duration: closeDuration; easing { type: Easing.Bezier; bezierCurve: bezierStandard }}
         }
     ]
 }
