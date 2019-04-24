@@ -18,6 +18,10 @@ Image {
     sourceSize { width: 256; height: 256 }
     asynchronous: true
 
+    visible: opacity > 0.001
+    opacity: status == Image.Ready ? 1.0 : 0.0
+    Behavior on opacity { NumberAnimation { duration: 150 } }
+
     Rectangle {
         anchors.fill: parent
         color: "#000"
