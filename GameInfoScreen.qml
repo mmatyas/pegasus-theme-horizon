@@ -152,7 +152,7 @@ FocusScope {
             }
         }
 
-        BottomRoundedRectangle {
+        BottomCornerRectangle {
             id: likebtn
 
             anchors.left: parent.left
@@ -160,7 +160,8 @@ FocusScope {
 
             width: parent.width * 0.3
             height: desc.font.pixelSize + container.padding * 1.2
-            leftRadius: parent.radius
+            radius: parent.radius
+            isLeft: true
             onClicked: originData.favorite = !originData.favorite
 
             baseColor: "#38f"
@@ -181,7 +182,7 @@ FocusScope {
             }
         }
 
-        BottomRoundedRectangle {
+        BottomCornerRectangle {
             id: launchbtn
 
             anchors.left: likebtn.right
@@ -189,7 +190,8 @@ FocusScope {
             anchors.top: likebtn.top
             anchors.bottom: likebtn.bottom
 
-            rightRadius: parent.radius
+            radius: parent.radius
+            isLeft: false
             baseColor: likebtn.baseColor
             hoverColor: likebtn.hoverColor
             onClicked: originData.launch()
