@@ -10,7 +10,7 @@ Image {
         : Image.PreserveAspectCrop
 
     source: assets.banner
-        || (assets.screenshots && assets.screenshots[0])
+        || (assets.logo && assets.screenshots && assets.screenshots[0])
         || assets.steam
         || assets.marquee
         || assets.boxFront
@@ -26,6 +26,7 @@ Image {
         anchors.fill: parent
         color: "#000"
         opacity: 0.2
+        visible: parent.source != assets.tile
     }
 
     Image {
