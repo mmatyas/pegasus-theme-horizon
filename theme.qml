@@ -7,6 +7,13 @@ FocusScope {
     readonly property int innerzoneWidth: mainWidth * 0.82
     readonly property int outerzoneWidth: width - innerzoneWidth
 
+    function key_is_arrow(key) {
+        return key == Qt.Key_Left
+            || key == Qt.Key_Right
+            || key == Qt.Key_Up
+            || key == Qt.Key_Down;
+    }
+
     Rectangle {
         anchors.fill: parent
         gradient: Gradient {
@@ -100,6 +107,10 @@ FocusScope {
             if (event.isAutoRepeat)
                 return;
 
+            if (key_is_arrow(event.key)) {
+                scrollIndicator.start();
+                return;
+            }
             if (api.keys.isPrevPage(event)) {
                 event.accepted = true;
                 collections.decrementCurrentIndex();
@@ -111,6 +122,25 @@ FocusScope {
                 return;
             }
         }
+        Keys.onReleased: {
+            if (event.isAutoRepeat)
+                return;
+
+            if (key_is_arrow(event.key)) {
+                scrollIndicator.stop();
+                return;
+            }
+        }
+    }
+
+    ScrollIndicator {
+        id: scrollIndicator
+
+        maxSize: root.height * 0.11
+        letter: grid.currentData.title.charAt(0)
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: grid.bottom
     }
 
     GameInfoScreen {
